@@ -79,28 +79,28 @@ CREATE TABLE past_appointment(
     appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
 );
 
 CREATE TABLE active_appointment(
     appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
 );
 
 CREATE TABLE available_appointment(
     appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
 );
 
 CREATE TABLE waitlisted_appointment(
     appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
 );
 
 -- has
