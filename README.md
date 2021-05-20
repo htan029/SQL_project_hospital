@@ -11,4 +11,4 @@ Start the project:
 5. `psql -h localhost -p $PGPORT $USER"_DB" < phase2_database.sql`
 
 End the project:
-`source ./stopPostgreSQL.sh`
+`source ./stopPostgreDB.sh`
