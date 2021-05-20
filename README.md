@@ -6,8 +6,9 @@ Start the project:
 
 1. `source ./startPostgreSQL.sh`
 2. `source ./createPostgreDB.sh`
-3. `psql -h localhost -p $PGPORT $USER"_DB" < phase2.sql`
-4. `psql -h localhost -p $PGPORT $USER"_DB" < phase2_database.sql`
+3. `cp *.txt /tmp/$USER/myDB/data/
+4. `psql -h localhost -p $PGPORT $USER"_DB" < phase2.sql`
+5. `psql -h localhost -p $PGPORT $USER"_DB" < phase2_database.sql`
 
 End the project:
 `source ./stopPostgreSQL.sh`
