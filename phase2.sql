@@ -20,33 +20,33 @@ DROP TABLE IF EXISTS request_maintenance CASCADE;
 
 -- Hospital, Patient, Appointment
 CREATE TABLE Hospital(
-    hospital_ID INTEGER NOT NULL,
-    hname CHAR(20),
+    hospital_ID VARCHAR(20) NOT NULL,
+    hname VARCHAR(20),
     PRIMARY KEY (hospital_ID)
 );
 
 CREATE TABLE Patient(
-    patient_ID INTEGER NOT NULL,
-    pname CHAR(20),
-    gender CHAR(20),
+    patient_ID VARCHAR(20) NOT NULL,
+    pname VARCHAR(20),
+    gender VARCHAR(20),
     age INTEGER,
-    address CHAR(50),
+    address VARCHAR(50),
     number_appointment INTEGER,
     PRIMARY KEY (patient_ID)
 );
 
 CREATE TABLE Appointment(
-    appnt_ID INTEGER NOT NULL,
-    date CHAR(20),
-    time_slot CHAR(20),
+    appnt_ID VARCHAR(20) NOT NULL,
+    date VARCHAR(20),
+    time_slot VARCHAR(20),
     PRIMARY KEY (appnt_ID)
 );
 
 -- Staff, Department, Doctor
 CREATE TABLE Staff_works_in(
-    staff_ID INTEGER NOT NULL,
-    sname CHAR(20),
-    hospital_ID INTEGER NOT NULL,
+    staff_ID VARCHAR(20) NOT NULL,
+    sname VARCHAR(20),
+    hospital_ID VARCHAR(20) NOT NULL,
     UNIQUE(staff_ID),
     PRIMARY KEY (staff_ID, hospital_ID),
     FOREIGN KEY (hospital_ID) REFERENCES Hospital(hospital_ID)
@@ -54,9 +54,9 @@ CREATE TABLE Staff_works_in(
 );
 
 CREATE TABLE Department_includes(
-    dept_ID INTEGER NOT NULL,
-    dpname CHAR(20),
-    hospital_ID INTEGER NOT NULL,
+    dept_ID VARCHAR(20) NOT NULL,
+    dpname VARCHAR(20),
+    hospital_ID VARCHAR(20) NOT NULL,
     UNIQUE(dept_ID),
     PRIMARY KEY (dept_ID, hospital_ID),
     FOREIGN KEY (hospital_ID) REFERENCES Hospital(hospital_ID)
@@ -64,9 +64,10 @@ CREATE TABLE Department_includes(
 );
 
 CREATE TABLE Doctor_works_dept(
-    doctor_ID INTEGER NOT NULL,
-    dname CHAR(20),
-    hospital_ID INTEGER NOT NULL,
+    doctor_ID VARCHAR(20) NOT NULL,
+    dname VARCHAR(20),
+    hospital_ID VARCHAR(20) NOT NULL,
+    speciality VARCHAR(20),
     UNIQUE(doctor_ID),
     PRIMARY KEY (doctor_ID, hospital_ID),
     FOREIGN KEY (hospital_ID) REFERENCES Hospital(hospital_ID)
@@ -75,28 +76,28 @@ CREATE TABLE Doctor_works_dept(
 
 -- past, active, available, waitlisted
 CREATE TABLE past_appointment(
-    appnt_ID INTEGER NOT NULL,
+    appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
     ON DELETE NO ACTION
 );
 
 CREATE TABLE active_appointment(
-    appnt_ID INTEGER NOT NULL,
+    appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
     ON DELETE NO ACTION
 );
 
 CREATE TABLE available_appointment(
-    appnt_ID INTEGER NOT NULL,
+    appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
     ON DELETE NO ACTION
 );
 
 CREATE TABLE waitlisted_appointment(
-    appnt_ID INTEGER NOT NULL,
+    appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (appnt_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment
     ON DELETE NO ACTION
@@ -104,8 +105,8 @@ CREATE TABLE waitlisted_appointment(
 
 -- has
 CREATE TABLE has(
-    doctor_ID INTEGER NOT NULL,
-    appnt_ID INTEGER NOT NULL,
+    doctor_ID VARCHAR(20) NOT NULL,
+    appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (doctor_ID, appnt_ID),
     FOREIGN KEY (doctor_ID) REFERENCES Doctor_works_dept(doctor_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment(appnt_ID)
@@ -113,8 +114,8 @@ CREATE TABLE has(
 
 -- schedules
 CREATE TABLE schedules(
-    staff_ID INTEGER NOT NULL,
-    appnt_ID INTEGER NOT NULL,
+    staff_ID VARCHAR(20) NOT NULL,
+    appnt_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (staff_ID, appnt_ID),
     FOREIGN KEY (staff_ID) REFERENCES Staff_works_in(staff_ID),
     FOREIGN KEY (appnt_ID) REFERENCES Appointment(appnt_ID)
@@ -122,9 +123,9 @@ CREATE TABLE schedules(
 
 -- search_appnt
 CREATE TABLE search_appnt(
-    hospital_ID INTEGER,
-    patient_ID INTEGER,
-    appnt_ID INTEGER,
+    hospital_ID VARCHAR(20),
+    patient_ID VARCHAR(20),
+    appnt_ID VARCHAR(20),
     PRIMARY KEY (hospital_ID, patient_ID, appnt_ID),
     FOREIGN KEY (hospital_ID) REFERENCES Hospital(hospital_ID),
     FOREIGN KEY (patient_ID) REFERENCES Patient(patient_ID),
@@ -134,10 +135,10 @@ CREATE TABLE search_appnt(
 -- request_maintenance
 CREATE TABLE request_maintenance(
     patient_per_hour INTEGER,
-    dept_name CHAR(20),
-    time_slot CHAR(20),
-    doctor_ID INTEGER NOT NULL,
-    staff_ID INTEGER NOT NULL,
+    dept_name VARCHAR(20),
+    time_slot VARCHAR(20),
+    doctor_ID VARCHAR(20) NOT NULL,
+    staff_ID VARCHAR(20) NOT NULL,
     PRIMARY KEY (doctor_ID, staff_ID),
     FOREIGN KEY (doctor_ID) REFERENCES Doctor_works_dept(doctor_ID),
     FOREIGN KEY (staff_ID) REFERENCES Staff_works_in(staff_ID)
