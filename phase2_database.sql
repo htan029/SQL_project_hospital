@@ -13,9 +13,9 @@ WITH DELIMITER ',';
 
 COPY Doctor_works_dept (
 	doctor_ID,
-	did,
+	hospital_ID,
 	dname,
-	specialty)
+	speciality)
 FROM 'doc.txt'
 WITH DELIMITER ',';
 
